@@ -1,10 +1,11 @@
 variable "aws_region" {
   description = "The AWS region for creating the infrastructure"
-  default     = "us-east-1"
+  default     = "eu-central-1"
 }
 
 variable "key_name" {
-  description = "Name of the AWS key pair to use"
+  description = "Key name"
+  default     = "<key-name>"
 }
 
 variable "ecs_cluster_name" {
@@ -17,21 +18,26 @@ variable "ecs_log_level" {
 }
 
 variable "admin_cidr_ingress" {
-
+  description = "Admin IP for admin access"
+  default     = "<ip range>"
 }
 
 variable "keycloak_admin_username" {
-  description = "KeyCloak Admin Username"
+  description = "Keycloak username"
+  default     = "<user-name>"
 }
 
 variable "keycloak_admin_password" {
-  description = "KeyCloak Admin Password"
+  description = "Keycloak login"
+  default     = "<user-pass>"
 }
 
 variable "public_dns_name" {
-  description = "The public-facing DNS name"
+  description = "public DNS Name"
+  default     = "<public-dns>"
 }
 
 variable "zone_name" {
-  description = "The DNS zone name"
+  description = "Route 53 zone name"
+  default     = "<zone-name>"
 }

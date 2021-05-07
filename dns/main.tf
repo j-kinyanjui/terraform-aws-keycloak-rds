@@ -17,10 +17,12 @@ resource "aws_acm_certificate" "main" {
 }
 
 resource "aws_route53_record" "validation" {
-  name    = aws_acm_certificate.main.domain_validation_options.0.resource_record_name
-  type    = aws_acm_certificate.main.domain_validation_options.0.resource_record_type
+  count = length(aws_acm_certificate.main.domain_validation_options)
+
+  name    = aws_acm_certificate.main.domain_validation_options[count.index].resource_record_name
+  type    = aws_acm_certificate.main.domain_validation_options[count.index].resource_record_type
   zone_id = data.aws_route53_zone.main.zone_id
-  records = [aws_acm_certificate.main.domain_validation_options[0].resource_record_value]
+  records = [aws_acm_certificate.main.domain_validation_options[count.index].resource_record_value]
   ttl     = "60"
 }
 

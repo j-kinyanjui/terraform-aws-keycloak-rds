@@ -16,7 +16,7 @@ data "aws_ami" "stable_coreos" {
     values = ["hvm"]
   }
 
-  owners = ["595879546273"]
+  owners = ["679593333241"]
 }
 
 resource "aws_autoscaling_group" "app" {
@@ -41,9 +41,7 @@ data "template_file" "cloud_config" {
 }
 
 resource "aws_launch_configuration" "app" {
-  security_groups = [
-    var.instance_sg_id,
-  ]
+  security_groups = [var.instance_sg_id]
 
   key_name                    = var.key_name
   image_id                    = data.aws_ami.stable_coreos.id
