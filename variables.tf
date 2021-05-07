@@ -1,6 +1,6 @@
 variable "aws_region" {
   description = "The AWS region for creating the infrastructure"
-  default = "us-east-1"
+  default     = "us-east-1"
 }
 
 variable "key_name" {
@@ -13,11 +13,11 @@ variable "ecs_cluster_name" {
 
 variable "ecs_log_level" {
   description = "The ECS log level"
-  default = "info"
+  default     = "info"
 }
 
 variable "admin_cidr_ingress" {
-  
+
 }
 
 variable "keycloak_admin_username" {

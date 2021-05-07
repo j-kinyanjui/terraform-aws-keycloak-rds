@@ -10,3 +10,7 @@ crash.log
 
 # Private variables
 private.tfvars
+
+.idea
+
+.terraform.lock.hcl

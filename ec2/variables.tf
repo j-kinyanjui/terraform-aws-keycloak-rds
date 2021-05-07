@@ -5,7 +5,7 @@ variable "instance_type" {
 
 variable "autoscaling_group_name" {
   description = "The name for the autoscaling group"
-  default = "asg-keycloak"
+  default     = "asg-keycloak"
 }
 variable "autoscaling_min_size" {
   description = "The minimum number of servers in the autoscaling group"
