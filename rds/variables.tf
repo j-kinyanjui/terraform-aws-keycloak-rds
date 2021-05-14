@@ -9,17 +9,17 @@ variable "rds_engine" {
 }
 
 variable "rds_engine_version" {
-  default = "9.6.3"
+  default = "13.3"
 }
 
 variable "rds_username" {
   description = "The username for the RDS account"
-  default     = "rdsuser"
+  default     = "<rds-username>"
 }
 
 variable "rds_password" {
   description = "The password for the RDS account"
-  default     = "Password123!"
+  default     = "<rds-password>"
 }
 
 variable "rds_storage_gigabytes" {
