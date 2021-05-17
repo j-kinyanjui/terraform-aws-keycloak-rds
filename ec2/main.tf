@@ -1,22 +1,16 @@
-data "aws_ami" "stable_coreos" {
+data "aws_ami" "ubuntu" {
+  owners = ["099720109477"]
   most_recent = true
-
-  filter {
-    name   = "description"
-    values = ["CoreOS Container Linux stable *"]
-  }
-
-  filter {
-    name   = "architecture"
-    values = ["x86_64"]
-  }
 
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
 
-  owners = ["679593333241"]
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-*-amd64-server-*"]
+  }
 }
 
 resource "aws_autoscaling_group" "app" {
@@ -44,7 +38,7 @@ resource "aws_launch_configuration" "app" {
   security_groups = [var.instance_sg_id]
 
   key_name                    = var.key_name
-  image_id                    = data.aws_ami.stable_coreos.id
+  image_id                    = data.aws_ami.ubuntu.id
   instance_type               = var.instance_type
   iam_instance_profile        = var.app_iam_instance_profile_name
   user_data                   = data.template_file.cloud_config.rendered
@@ -54,14 +48,3 @@ resource "aws_launch_configuration" "app" {
     create_before_destroy = true
   }
 }
-
-resource "tls_private_key" "genkey" {
-  algorithm = "RSA"
-  rsa_bits  = 4096
-}
-
-resource "aws_key_pair" "genkey" {
-  key_name   = var.key_name
-  public_key = tls_private_key.genkey.public_key_openssh
-}
-
