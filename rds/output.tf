@@ -12,6 +12,7 @@ output "database_username" {
 
 output "database_password" {
   value = var.rds_password
+  sensitive = true
 }
 
 output "database_name" {
