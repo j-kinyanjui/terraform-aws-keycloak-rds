@@ -10,7 +10,7 @@ variable "container_name" {
 
 variable "docker_image_url" {
   description = "The URL of the Docker image"
-  default     = "jboss/keycloak:6.0.1"
+  default     = "jboss/keycloak:13.0.1"
 }
 
 variable "docker_container_port" {

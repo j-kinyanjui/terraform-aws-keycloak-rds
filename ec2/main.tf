@@ -1,5 +1,5 @@
-data "aws_ami" "ubuntu" {
-  owners = ["099720109477"]
+data "aws_ami" "aws-ecs-optimized" {
+  owners = ["amazon"]
   most_recent = true
 
   filter {
@@ -9,7 +9,7 @@ data "aws_ami" "ubuntu" {
 
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-focal-*-amd64-server-*"]
+    values = ["amzn-ami-*-amazon-ecs-optimized"]
   }
 }
 
@@ -23,7 +23,8 @@ resource "aws_autoscaling_group" "app" {
 }
 
 data "template_file" "cloud_config" {
-  template = file("ec2/templates/cloud-config.tpl")
+  // add the ec2 instance to the created cluster and not the default cluster
+  template = file("ec2/templates/ecs-userdata.tpl")
 
   vars = {
     aws_region         = var.aws_region
@@ -38,7 +39,7 @@ resource "aws_launch_configuration" "app" {
   security_groups = [var.instance_sg_id]
 
   key_name                    = var.key_name
-  image_id                    = data.aws_ami.ubuntu.id
+  image_id                    = data.aws_ami.aws-ecs-optimized.id
   instance_type               = var.instance_type
   iam_instance_profile        = var.app_iam_instance_profile_name
   user_data                   = data.template_file.cloud_config.rendered

@@ -9,7 +9,7 @@ variable "rds_engine" {
 }
 
 variable "rds_engine_version" {
-  default = "13.3"
+  default = "12.6"
 }
 
 variable "rds_username" {
